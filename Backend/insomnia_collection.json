@@ -1,0 +1,102 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-10-07T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2025.0.0",
+  "resources": [
+    {
+      "_id": "wrk_insa",
+      "created": 0,
+      "description": "INSAtalentportal Backend",
+      "modified": 0,
+      "name": "INSAtalentportal",
+      "parentId": null,
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_base",
+      "color": null,
+      "created": 0,
+      "data": {
+        "baseUrl": "http://localhost:5000/api/v1",
+        "token": ""
+      },
+      "isPrivate": false,
+      "metaSortKey": 0,
+      "modified": 0,
+      "name": "Base Environment",
+      "parentId": "wrk_insa",
+      "_type": "environment"
+    },
+    {
+      "_id": "fld_root",
+      "created": 0,
+      "modified": 0,
+      "name": "Requests",
+      "parentId": "wrk_insa",
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_health",
+      "created": 0,
+      "modified": 0,
+      "method": "GET",
+      "name": "Health",
+      "parameters": [],
+      "parentId": "fld_root",
+      "url": "{{ _.baseUrl }}/health",
+      "_type": "request"
+    },
+    {
+      "_id": "req_register",
+      "created": 0,
+      "modified": 0,
+      "method": "POST",
+      "name": "Auth - Register",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Alice\",\n  \"email\": \"alice@example.com\",\n  \"password\": \"secret123\"\n}"
+      },
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "parameters": [],
+      "parentId": "fld_root",
+      "url": "{{ _.baseUrl }}/auth/register",
+      "_type": "request"
+    },
+    {
+      "_id": "req_login",
+      "created": 0,
+      "modified": 0,
+      "method": "POST",
+      "name": "Auth - Login",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"alice@example.com\",\n  \"password\": \"secret123\"\n}"
+      },
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "parameters": [],
+      "parentId": "fld_root",
+      "url": "{{ _.baseUrl }}/auth/login",
+      "_type": "request"
+    },
+    {
+      "_id": "req_me",
+      "created": 0,
+      "modified": 0,
+      "method": "GET",
+      "name": "Auth - Me",
+      "headers": [
+        { "name": "Authorization", "value": "Bearer {{ _.token }}" }
+      ],
+      "parameters": [],
+      "parentId": "fld_root",
+      "url": "{{ _.baseUrl }}/auth/me",
+      "_type": "request"
+    }
+  ]
+}
+
