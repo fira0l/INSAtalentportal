@@ -1,5 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import { User } from '../models/User';
 
 export function requireAuth(req: Request, res: Response, next: NextFunction): void {
   const auth = req.headers.authorization;
@@ -22,6 +23,24 @@ export function requireAuth(req: Request, res: Response, next: NextFunction): vo
   } catch {
     res.status(401).json({ message: 'Invalid token' });
   }
+}
+
+export async function requireAdmin(req: Request, res: Response, next: NextFunction): Promise<void> {
+  const authUser = (req as any).user as { id: string } | undefined;
+  if (!authUser) {
+    res.status(401).json({ message: 'Unauthorized' });
+    return;
+  }
+  const user = await User.findById(authUser.id).lean();
+  if (!user) {
+    res.status(401).json({ message: 'Unauthorized' });
+    return;
+  }
+  if ((user as any).role !== 'admin') {
+    res.status(403).json({ message: 'Forbidden' });
+    return;
+  }
+  next();
 }
 
 
