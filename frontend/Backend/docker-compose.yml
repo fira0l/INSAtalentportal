@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  api:
+    build: .
+    container_name: insa_api
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
